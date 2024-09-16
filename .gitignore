@@ -1,0 +1,14 @@
+#gitignore for standard django project
+
+# Ignore all logfiles and database files
+*.log
+*.pot
+*.pyc
+*.sqlite3
+
+# Ignore the virtualenv directory
+venv/
+env/
+
+.env
+.env.example
