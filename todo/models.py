@@ -9,3 +9,6 @@ class Todo(models.Model):
 
     class Meta:
         ordering = ['createdAt']
+        managed = True
+        verbose_name = 'Todo'
+        verbose_name_plural = 'Todos'
