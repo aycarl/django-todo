@@ -1,0 +1,46 @@
+# Global configuration
+[global]
+  # debug = true  # Set to false for production
+  # defaultEntryPoints = ["http"]
+
+# Entry points (replace with your desired ports if needed)
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    # TLS configuration for HTTPS (optional)
+    # tls = { certFile = "/path/to/cert.pem", keyFile = "/path/to/key.pem" }
+
+# Middlewares (optional)
+[middlewares]
+  # Add custom middlewares here if needed (e.g., for authentication)
+
+# Routers (these map URLs to backends)
+[routers]
+  [routers.frontend-web]  # Router name, network, and entry point
+    rule = "HostRegexp(`web.sqool.paperhuts.com`)"  # Match custom domain
+    service = "frontend"  # Name of your frontend container
+    entrypoints = ["http"]  # Entry point for this router
+    middlewares = ["stripPrefix:/"]  # Optional: Remove path prefix (adjust as needed)
+
+  [routers.frontend-api]
+    rule = "HostRegexp(`api.sqool.paperhuts.com`)"  # Match custom domain
+    service = "backend"  # Name of your backend container
+    entrypoints = ["http"]  # Entry point for this router
+
+# Services (these define backends for routers)
+# [services]
+#   frontend = {  # Name of your frontend container service
+#     loadBalancer = {  # Load balancing configuration (adjust as needed)
+#       servers = [
+#         { address = "frontend:8080" }  # Replace with your frontend container's port
+#       ]
+#     }
+#   }
+
+#   backend = {  # Name of your backend container service
+#     loadBalancer = {  # Load balancing configuration (adjust as needed)
+#       servers = [
+#         { address = "backend:8000" }  # Replace with your backend container's port
+#       ]
+#     }
+#   }

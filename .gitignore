@@ -11,4 +11,13 @@ venv/
 env/
 
 .env
-.env.example
+
+# Ignore the poetry cache
+.poetry/
+
+# Ignore local database
+db.sqlite3
+local-db/
+
+
+letsencrypt/

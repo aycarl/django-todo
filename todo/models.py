@@ -8,7 +8,7 @@ class Todo(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['createdAt']
+        ordering = ['-createdAt']
         managed = True
         verbose_name = 'Todo'
         verbose_name_plural = 'Todos'
