@@ -14,6 +14,25 @@ This project is a basic Todo application built with Django. It allows users to c
     cd django-todo
     ```
 
+2. **Setting up a local custom domain**:
+
+    Edit /etc/hosts File: Add an entry to your /etc/hosts file to map a custom domain to localhost.
+
+    ```bash
+    sudo nano /etc/hosts
+    ```
+
+    Add the following line to the file:
+
+    ```text
+    127.0.0.1       your-custom-domain.local   # e.g. aycarl.local
+    127.0.0.1       todo-api.<your-custom-domain>.local   # e.g. todo-api.aycarl.local
+    ```
+
+    Save and close the file.
+
+    Update docker-compose.yml: Update your docker-compose.yml to configure Traefik and your Django service for local development.
+
 2. **Install Poetry**:
     Follow the instructions on the [Poetry website](https://python-poetry.org/docs/#installation) to install Poetry.
 
