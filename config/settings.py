@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "default_secret_key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','aycarl.local','todo-api.aycarl.local']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','todo.dev.aycarl.merit.edu']
 
 
 # Application definition
