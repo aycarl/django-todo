@@ -20,4 +20,6 @@ db.sqlite3
 local-db/
 
 
+# Misc
 letsencrypt/
+.idea/
