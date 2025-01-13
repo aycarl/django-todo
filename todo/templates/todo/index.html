@@ -1,7 +1,12 @@
-{% extends "_base.html" %}
+{#{% extends "_base.html" %}#}
 
-{% block main %}
-  <section>
-    <h1>Hello World!</h1>
-  </section>
-{% endblock main%}
+{#{% block main %}#}
+{#{% endblock main%}#}
+<section>
+    <h1>TODO LIST APP</h1>
+    <ul>
+        {% for todo in todos %}
+            <li><a href="{% url 'todo:detail' todo.id %}">{{ todo.title }}</a></li>
+        {% endfor %}
+    </ul>
+</section>

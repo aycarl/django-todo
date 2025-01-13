@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from todo.models import Todo
@@ -18,4 +18,15 @@ def index(request):
     """
     Base view
     """
-    return render(request, "todo/_base.html")
+    todo_list = Todo.objects.all()
+    context = {"todos": todo_list}
+    return render(request, "todo/index.html", context)
+
+
+def detail(request, todo_id):
+    """
+    Detail view
+    """
+    todo = get_object_or_404(Todo, pk=todo_id)
+    context = {"todo": todo}
+    return render(request, "todo/detail.html", context)
