@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from rest_framework import viewsets, status
-from rest_framework.response import Response
+from django.http import HttpResponse
+from django.views import generic
+from django.views.decorators.http import require_GET
+from rest_framework import viewsets
 from todo.models import Todo
 from todo.serializers import TodoSerializer
 
-# Create your views here.
+
 class TodoViewSet(viewsets.ModelViewSet):
     """
     API viewset for viewing and editing user instances.
@@ -13,20 +14,41 @@ class TodoViewSet(viewsets.ModelViewSet):
     serializer_class = TodoSerializer
 
 
-
-def index(request):
+class IndexView(generic.ListView):
     """
     Base view
     """
-    todo_list = Todo.objects.all()
-    context = {"todos": todo_list}
-    return render(request, "todo/index.html", context)
+    template_name = "todo/index.html"
+    context_object_name = "todos"
+
+    def get_queryset(self):
+        return Todo.objects.all()
 
 
-def detail(request, todo_id):
+class DetailView(generic.DetailView):
     """
     Detail view
     """
-    todo = get_object_or_404(Todo, pk=todo_id)
-    context = {"todo": todo}
-    return render(request, "todo/detail.html", context)
+    model = Todo
+    template_name = "todo/detail.html"
+
+
+class CreateView(generic.CreateView):
+    """
+    Create view
+    """
+    model = Todo
+    template_name = "todo/_create.html"
+    fields = ['title', 'content']
+
+
+@require_GET
+def favicon(request) -> HttpResponse:
+    return HttpResponse(
+        (
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'
+                + '<text y=".9em" font-size="90">🦊</text>'
+                + "</svg>"
+        ),
+        content_type="image/svg+xml",
+    )
