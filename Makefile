@@ -26,6 +26,8 @@ help:
 		@printf "  $(GREEN)make superuser$(RESET)       Create a Django superuser\n"
 		@printf "  $(GREEN)make test$(RESET)            Run tests\n"
 		@printf "  $(GREEN)make runserver$(RESET)       Run the Django development server\n"
+		@printf "  $(GREEN)make poetry-install$(RESET)  Install Django dependencies with poetry\n"
+		@printf "  $(GREEN)make poetry-add$(RESET)      Install new python dependency with poetry"
 
 # Build Docker containers
 build:
@@ -66,3 +68,17 @@ test:
 runserver:
 		@printf "$(YELLOW)Running the Django development server...$(RESET)\n"
 		$(DOCKER_COMPOSE) exec todo_api $(PYTHON) manage.py runserver 0.0.0.0:8000
+
+# Install Django dependencies with poetry in the container
+# Run poetry lock and install dependencies
+# add --no-dev to install only production dependencies
+poetry-install:
+		@printf "$(YELLOW)Installing Django dependencies...$(RESET)\n"
+		$(DOCKER_COMPOSE) exec todo_api poetry lock
+		$(DOCKER_COMPOSE) exec todo_api poetry install --no-root
+
+# Install new python dependency with poetry
+# add --dev to install only development dependencies
+poetry-add:
+		@printf "$(YELLOW)Adding new Python dependency...$(RESET)\n"
+		$(DOCKER_COMPOSE) exec todo_api poetry add $(package)
