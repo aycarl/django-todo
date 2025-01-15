@@ -25,23 +25,6 @@ class IndexView(generic.ListView):
         return Todo.objects.all()
 
 
-class DetailView(generic.DetailView):
-    """
-    Detail view
-    """
-    model = Todo
-    template_name = "todo/detail.html"
-
-
-class CreateView(generic.CreateView):
-    """
-    Create view
-    """
-    model = Todo
-    template_name = "todo/_create.html"
-    fields = ['title', 'content']
-
-
 @require_GET
 def favicon(request) -> HttpResponse:
     return HttpResponse(
