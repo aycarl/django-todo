@@ -18,7 +18,7 @@ class IndexView(generic.ListView):
     """
     Base view
     """
-    template_name = "todo/index.html"
+    template_name = "todo/htmx-index.html"
     context_object_name = "todos"
 
     def get_queryset(self):

@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TODO - HTMX</title>
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    </head>
+    <body>
+        <header class="section pb-2">
+            <div class="is-flex is-justify-content-center">
+                <h1 class="is-size-2">TODO APP - Django</h1>
+            </div>
+        </header>
+        <main>
+        <section class="section pt-2">
+            <div class="container is-max-tablet is-flex-direction-column is-align-content-center">
+                <hr>
+                <div>
+                    <h2 class="is-size-4">Create a new todo</h2>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="field">
+                            <label for="title">Title</label>
+                            <div class="control">
+                                <input class="input" type="text" id="title" name="title">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="content">Content</label>
+                            <div class="control">
+                                <textarea id="content" class="textarea" name="content" placeholder="details..."></textarea>
+                            </div>
+                        </div>
+                        <button class="button is-primary" type="submit">Create</button>
+                    </form>
+                </div>
+                <hr>
+            </div>
+            <div class="container is-max-tablet is-flex is-flex-direction-column">
+                <h2 class="is-size-4">List items</h2>
+                <div>
+                    {% for todo in todos %}
+                        <input aria-label=""
+                               type="checkbox"
+                               hx-post="{% url 'todo:toggle' todo.id %}"
+                        />
+                        <div>
+                            <h3 class="has-text-weight-medium">{{ todo.title }}</h3>
+                            <p>{{ todo.content }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        </main>
+        <footer class="footer"></footer>
+    </body>
+</html>

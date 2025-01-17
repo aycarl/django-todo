@@ -37,7 +37,7 @@ build:
 # Start Docker containers
 up:
 		@printf "$(YELLOW)Starting Docker containers...$(RESET)\n"
-		$(DOCKER_COMPOSE) up
+		$(DOCKER_COMPOSE) up -d
 
 # Stop Docker containers
 down:
