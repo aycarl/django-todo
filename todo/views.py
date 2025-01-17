@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.views import generic
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_http_methods
 from rest_framework import viewsets
 from todo.models import Todo
 from todo.serializers import TodoSerializer
@@ -23,6 +23,17 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Todo.objects.all()
+
+
+@require_http_methods(["PUT"])
+def toggle_todo(request, pk):
+    """
+    Toggle the completed state of a todo
+    """
+    todo = Todo.objects.get(pk=pk)
+    todo.completed = not todo.completed
+    todo.save()
+    return HttpResponse(status=204)
 
 
 @require_GET

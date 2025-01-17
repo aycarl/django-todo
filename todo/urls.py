@@ -10,6 +10,7 @@ router.register(r'todos', views.TodoViewSet)
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('toggle/<int:pk>/', views.toggle_todo, name='toggle'),
     path('api/', include(router.urls)),
     path('favicon.ico', views.favicon, name='favicon'),
 ]
