@@ -14,7 +14,7 @@
     <body>
         <header class="section pb-2">
             <div class="is-flex is-justify-content-center">
-                <h1 class="is-size-2">TODO APP - Django</h1>
+                <h1 class="is-size-2">TODO APP - Django X HTMX</h1>
             </div>
         </header>
         <main>
@@ -23,12 +23,12 @@
                 <hr>
                 <div>
                     <h2 class="is-size-4">Create a new todo</h2>
-                    <form action="" method="post">
+                    <form hx-post="{% url 'todo:create_todo' %}" hx-target="#todo-list" hx-swap="afterbegin" hx-on="htmx:afterRequest: this.reset()">
                         {% csrf_token %}
                         <div class="field">
                             <label for="title">Title</label>
                             <div class="control">
-                                <input class="input" type="text" id="title" name="title">
+                                <input class="input" type="text" id="title" name="title" required>
                             </div>
                         </div>
                         <div class="field">
@@ -44,21 +44,25 @@
             </div>
             <div class="container is-max-tablet is-flex is-flex-direction-column">
                 <h2 class="is-size-4">List items</h2>
-                <div>
+                <div id="todo-list">
                     {% for todo in todos %}
-                        <input aria-label=""
-                               type="checkbox"
-                               hx-post="{% url 'todo:toggle' todo.id %}"
-                        />
-                        <div>
-                            <h3 class="has-text-weight-medium">{{ todo.title }}</h3>
-                            <p>{{ todo.content }}</p>
-                        </div>
+                        {% include "todo/_todo_item.html" %}
                     {% endfor %}
                 </div>
             </div>
         </section>
         </main>
         <footer class="footer"></footer>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', (event) => {
+            document.body.addEventListener('htmx:configRequest', function(evt) {
+              const csrfTokenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+              if (csrfTokenInput) {
+                evt.detail.headers['X-CSRFToken'] = csrfTokenInput.value;
+              }
+            });
+          });
+        </script>
     </body>
 </html>

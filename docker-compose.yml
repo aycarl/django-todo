@@ -1,10 +1,10 @@
 #  Composer file for running the Django app in a container
 
-# version: '3.5'
+version: '3.5'
 
-# networks:
-#   traefik-proxy:
-#     external: true
+networks:
+  traefik-proxy:
+    external: true
 
 services:
   todo_api:
@@ -18,10 +18,10 @@ services:
        - "8000:8000"
     env_file:
       - ./.env
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.http.routers.todo.rule=Host(`todo.dev.${USER}.merit.edu`)"
-    #   - "traefik.http.services.todo.loadbalancer.server.port=8000"
-    # networks:
-    #   - traefik-proxy
-    #   - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.todo.rule=Host(`todo.dev.${USER}.merit.edu`)"
+      - "traefik.http.services.todo.loadbalancer.server.port=8000"
+    networks:
+      - traefik-proxy
+      - default
