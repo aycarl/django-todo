@@ -1,20 +1,21 @@
-<div id="todo-item-{{ todo.id }}">
+<div id="todo-item-{{ todo.id }}" class="is-flex is-align-items-flex-start mb-3 p-3 box">
     <input aria-label="Toggle todo"
            type="checkbox"
            name="completed"
+           class="mr-3 mt-1"
            hx-post="{% url 'todo:toggle' todo.id %}"
            hx-target="#todo-list"
            hx-swap="innerHTML"
            {% if todo.completed %}checked{% endif %}
     />
-    <div class="is-inline-block {% if todo.completed %}has-text-grey-light is-italic{% endif %}"
+    <div class="is-flex-grow-1 {% if todo.completed %}has-text-grey-light is-italic{% endif %}"
          {% if todo.completed %}
              style="text-decoration: line-through;"
          {% endif %}>
-        <h3 class="has-text-weight-medium">{{ todo.title }}</h3>
-        <p>{{ todo.content }}</p>
+        <h3 class="has-text-weight-medium mb-1">{{ todo.title }}</h3>
+        <p class="mb-0">{{ todo.content }}</p>
     </div>
-    <button class="button is-danger is-small ml-2"
+    <button class="button is-danger is-small ml-3"
             hx-delete="{% url 'todo:delete_todo' todo.id %}"
             hx-target="#todo-item-{{ todo.id }}"
             hx-swap="outerHTML"

@@ -27,7 +27,7 @@ help:
 		@printf "  $(GREEN)make test$(RESET)            Run tests\n"
 		@printf "  $(GREEN)make runserver$(RESET)       Run the Django development server\n"
 		@printf "  $(GREEN)make poetry-install$(RESET)  Install Django dependencies with poetry\n"
-		@printf "  $(GREEN)make poetry-add$(RESET)      Install new python dependency with poetry"
+		@printf "  $(GREEN)make poetry-add$(RESET)      Install new python dependency with poetry\n"
 
 # Build Docker containers
 build:
