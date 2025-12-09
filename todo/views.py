@@ -44,13 +44,15 @@ def toggle_todo(request, pk):
 @require_POST
 def create_todo(request):
     """
-    Create a new todo and return the new item partial.
+    Create a new todo and return the full todo list to maintain proper sorting.
     """
     title = request.POST.get("title")
     content = request.POST.get("content")
     if title:
-        todo = Todo.objects.create(title=title, content=content)
-        return render(request, "todo/_todo_item.html", {"todo": todo})
+        Todo.objects.create(title=title, content=content)
+        # Return the full todo list with proper sorting
+        todos = Todo.objects.all().order_by('completed', '-created_at')
+        return render(request, "todo/_todo_list.html", {"todos": todos})
     return HttpResponse(status=400)  # Bad request if title is missing
 
 
@@ -65,6 +67,14 @@ def delete_todo(request, pk):
         return HttpResponse(status=200)  # OK, HTMX will remove the element
     except Todo.DoesNotExist:
         return HttpResponse(status=404)  # Not Found
+
+
+@require_GET
+def get_todo_form(request):
+    """
+    Return the modal form for creating a new todo.
+    """
+    return render(request, "todo/_todo_form_modal.html")
 
 
 @require_GET

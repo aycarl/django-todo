@@ -15,6 +15,7 @@
         <h3 class="has-text-weight-medium mb-1">{{ todo.title }}</h3>
         <p class="mb-0">{{ todo.content }}</p>
     </div>
+    {% csrf_token %}
     <button class="button is-danger is-small ml-3"
             hx-delete="{% url 'todo:delete_todo' todo.id %}"
             hx-target="#todo-item-{{ todo.id }}"
