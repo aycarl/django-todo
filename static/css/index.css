@@ -1,0 +1,20 @@
+/* Floating Action Button - minimal custom styles */
+.fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+}
+
+/* Better spacing for todo items */
+#todo-list {
+    margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .fab {
+        bottom: 1rem;
+        right: 1rem;
+    }
+}

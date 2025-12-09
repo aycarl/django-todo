@@ -21,37 +21,33 @@
         <section class="section pt-2">
             <div class="container is-max-tablet is-flex-direction-column is-align-content-center">
                 <hr>
-                <div>
-                    <h2 class="is-size-4">Create a new todo</h2>
-                    <form hx-post="{% url 'todo:create_todo' %}" hx-target="#todo-list" hx-swap="afterbegin" hx-on="htmx:afterRequest: this.reset()">
-                        {% csrf_token %}
-                        <div class="field">
-                            <label for="title">Title</label>
-                            <div class="control">
-                                <input class="input" type="text" id="title" name="title" required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label for="content">Content</label>
-                            <div class="control">
-                                <textarea id="content" class="textarea" name="content" placeholder="details..."></textarea>
-                            </div>
-                        </div>
-                        <button class="button is-primary" type="submit">Create</button>
-                    </form>
-                </div>
-                <hr>
-            </div>
-            <div class="container is-max-tablet is-flex is-flex-direction-column">
-                <h2 class="is-size-4">List items</h2>
-                <div id="todo-list">
-                    {% for todo in todos %}
-                        {% include "todo/_todo_item.html" %}
-                    {% endfor %}
+                <div class="container is-max-tablet is-flex is-flex-direction-column">
+                    <h2 class="is-size-4">Todo Items</h2>
+                    <div id="todo-list">
+                        {% for todo in todos %}
+                            {% include "todo/_todo_item.html" %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </section>
         </main>
+        
+        <!-- Modal Container -->
+        <div id="modal-container"></div>
+        
+        <!-- Floating Action Button -->
+        <button class="button is-primary is-large is-rounded fab has-shadow" 
+                hx-get="{% url 'todo:get_todo_form' %}" 
+                hx-target="#modal-container" 
+                hx-swap="innerHTML"
+                title="Add new todo">
+            <span class="icon is-large">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
         <footer class="footer"></footer>
 
         <script>
